@@ -36,7 +36,7 @@ import { setIsLoading } from "../redux/slices/loaderSlice";
 import useAuth from "../../middleware/useAuth";
 import Sidebar from "./Sidebar";
 import { darkModeActived } from "../redux/slices/darkModeSlice";
-import Logo from "../assets/images/B_logo.png";
+import Logo from "../assets/images/bLogo.png";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
