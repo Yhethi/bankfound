@@ -1,0 +1,13 @@
+.sidebar_component {
+  @include respond-to("md") {
+    width: 200px;
+  }
+}
+
+.MuiPaper-root {
+  background: var(--background-color);
+}
+
+.MuiSvgIcon-root {
+  color: var(--text-dark-mode);
+}

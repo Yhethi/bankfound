@@ -1,0 +1,22 @@
+.graph {
+  @include card-style;
+  width: 100%;
+  position: relative;
+  margin-top: 10px;
+  .flex_colors {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    padding-top: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+    .dot_color {
+      width: 20px;
+      margin-left: 10px;
+      margin-right: 3px;
+      height: 20px;
+      border-radius: 100%;
+    }
+  }
+}

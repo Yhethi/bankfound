@@ -1,0 +1,22 @@
+.banking {
+  padding: 1rem;
+  padding-top: 64px;
+  h1 {
+    font-size: 2rem;
+  }
+
+  .banking-overview {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .dataUser {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    color: var(--text-dark-mode);
+  }
+}

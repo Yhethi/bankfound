@@ -1,0 +1,13 @@
+.dashboard {
+    display: flex;
+    height: 100vh;
+    background-color: $secondary-color;
+  
+    .dashboard-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background-color: $background-color;
+    }
+  }

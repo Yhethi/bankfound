@@ -1,0 +1,44 @@
+.transactions-table {
+  margin-top: 2rem;
+  border-collapse: collapse;
+  width: 100%;
+
+  thead {
+    background-color: $primary-color;
+    color: $background-color;
+
+    th {
+      padding: 0.75rem;
+      text-align: left;
+    }
+  }
+
+  tbody {
+    tr {
+      &:nth-child(odd) {
+        background-color: white;
+      }
+
+      &:nth-child(even) {
+        background-color: rgb(231, 231, 231);
+      }
+
+      td {
+        padding: 0.75rem;
+        color: $text-color;
+
+        border-bottom: 1px solid lighten($secondary-color, 20%);
+      }
+      transition: 0.2s;
+      &:hover {
+        background-color: darken(white, 10%);
+        scale: 1.01;
+        cursor: crosshair;
+      }
+    }
+  }
+
+  @include respond-to("sm") {
+    font-size: 0.875rem;
+  }
+}
