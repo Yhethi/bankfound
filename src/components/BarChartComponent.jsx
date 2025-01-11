@@ -67,7 +67,7 @@ export default function BarChartComponent({ showGraph, user, users }) {
   }));
   // Al renderizar o usar los datos
 
-  console.log(barSeries);
+  // console.log(barSeries);
 
   const chartSetting = {
     yAxis: [
