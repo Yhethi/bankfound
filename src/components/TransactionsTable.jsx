@@ -130,6 +130,7 @@ const TransactionsTable = ({ user, users }) => {
         <input
           type="text"
           placeholder="Buscar..."
+          className="search_input"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -147,7 +148,7 @@ const TransactionsTable = ({ user, users }) => {
             placeholder="Fecha Fin"
           />
           <button onClick={exportToExcel} className="export-button">
-            Exportar a Excel{" "}
+            Exportar a Excel
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="24px"

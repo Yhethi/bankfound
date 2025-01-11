@@ -10,3 +10,7 @@
 1.01
 - Footer arreglado.
 - Ajustado el coldspan del cero transacciones.
+
+1.02
+- Centrado los elementos del banking.
+- Saldo total del sistema solo para el admin.

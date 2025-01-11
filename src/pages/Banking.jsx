@@ -40,10 +40,16 @@ const Banking = () => {
       <div className="banking-overview">
         <AccountCard accountName="Disponible" balance={user.saldo} />
         {/* <AccountCard accountName="Ahorrado (Mes)" balance={user.ahorrado} /> */}
-        <AccountCard
-          accountName="S. Total en Sistema"
-          balance={totalAmountUsers}
-        />
+        {isAdmin ? (
+          <>
+            <AccountCard
+              accountName="S. Total en Sistema"
+              balance={totalAmountUsers}
+            />
+          </>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="actions__card">
         {isAdmin ? (
