@@ -1,15 +1,101 @@
 .table-container {
   overflow-x: auto;
   width: 100%;
-  padding-bottom: 50px;
+  margin-top: -35px;
+  display: flex !important;
+  justify-content: center;
+  // flex-direction: column;
+  @media (max-width: 710px) {
+    justify-content: left;
+  }
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  gap: 5px;
+  width: 100%;
+  padding-bottom: 50px;
+  .pagination-arrow,
+  .pagination-number {
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 
+    &:hover {
+      background-color: #007bff;
+      color: #fff;
+      scale: 1.09;
+    }
+
+    &:disabled {
+      background-color: #e9ecef;
+      color: #6c757d;
+      cursor: not-allowed;
+    }
+  }
+
+  .pagination-number {
+    border-radius: 15%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pagination-arrow {
+    border-radius: 0.5rem;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    place-content: center;
+    padding: 0rem 1rem;
+    &.disabled {
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+
+  .pagination-number.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    font-weight: bold;
+  }
+}
+.table__search {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  .search__dates {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+  input {
+    height: 48px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #0866ff;
+    border-radius: 10px;
+  }
+}
 .transactions-table {
   margin-top: 2rem;
   border-collapse: collapse;
-  width: 100%;
+  width: 98%;
   min-width: 550px !important;
-
+  border: 2px solid #0866ff;
   thead {
     background-color: $primary-color;
     color: $background-color;

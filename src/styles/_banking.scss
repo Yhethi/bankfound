@@ -1,6 +1,7 @@
 .banking {
   padding: 1rem;
   padding-top: 64px;
+  position: relative;
   h1 {
     font-size: 2rem;
   }
@@ -18,5 +19,39 @@
     flex-wrap: wrap;
     padding: 10px 0;
     color: var(--text-dark-mode);
+  }
+  .actions__card {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+    margin-top: 10px;
+    button {
+      background: linear-gradient(135deg, #0866ff, #2a5298);
+      border-radius: 12px;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      color: white;
+      text-transform: uppercase;
+      border: none;
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 28px;
+        min-width: 197px;
+        svg {
+          fill: white;
+        }
+      }
+      &:hover {
+        scale: 1.02;
+      }
+    }
   }
 }

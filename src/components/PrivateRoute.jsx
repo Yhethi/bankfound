@@ -12,14 +12,14 @@ const PrivateRoute = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    console.log("Token desde localStorage:", token);
+    // console.log("Token desde localStorage:", token);
     if (token) {
       const user = JSON.parse(localStorage.getItem("user"));
       dispatch(loginUser({ token, user }));
     }
   }, []);
 
-  console.log("Redux User:", userRedux);
+  // console.log("Redux User:", userRedux);
   return userRedux ? <App /> : <Login />;
 };
 

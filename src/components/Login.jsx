@@ -12,8 +12,10 @@ import Header from "./Header";
 import Loader from "./tools/Loader";
 
 export const Login = () => {
-  const [email, setEmail] = useState("admin@gmail.com");
-  const [password, setPassword] = useState("123");
+  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("admin@gmail.com");
+  const [password, setPassword] = useState("");
+  // const [password, setPassword] = useState("123");
   const [error, setError] = useState("");
   const [toRegister, setToRegister] = useState(false);
 
@@ -21,17 +23,42 @@ export const Login = () => {
   const navigate = useNavigate();
 
   async function mockLoginAPI(email, password) {
-    if (email === "admin@gmail.com" && password === "123") {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Buscar el usuario por email y contraseña
+    const user = users.find(
+      (u) => u.email === email && u.password === password
+    );
+
+    // if (email === "admin@gmail.com" && password === "123") {
+    //   return {
+    //     data: {
+    //       success: true,
+    //       token: "fakeAuthToken123",
+    //       user: {
+    //         id: 1,
+    //         name: "Yhethi",
+    //         email: "admin@gmail.com",
+    //         saldo: 8270,
+    //         ahorrado: 5827,
+    //       },
+    //     },
+    //   };
+
+    if (user) {
       return {
         data: {
           success: true,
-          token: "fakeAuthToken123",
+          token: "fakeAuthToken123", // Simular un token
           user: {
-            id: 1,
-            name: "Yhethi",
-            email: "admin@gmail.com",
-            saldo: 8270,
-            ahorrado: 5827,
+            id: user.id,
+            name: user.name,
+            lastname: user.lastname,
+            email: user.email,
+            password: user.password,
+            saldo: user.saldo,
+            ahorrado: user.ahorrado,
+            transactions: user.transactions,
           },
         },
       };

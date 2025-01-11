@@ -28,7 +28,7 @@ const AccountCard = ({ accountName, balance }) => {
         onMouseLeave={handleMouseLeave}
       >
         <div className="card-content">
-          <p>${balance}</p>
+          <p>Bs. {balance}</p>
           <h2>{accountName}</h2>
         </div>
       </div>

@@ -203,7 +203,7 @@ const Header = () => {
           Registrarse
         </MenuItem>
       )}
-      {isLogged && (
+      {/* {isLogged && (
         <MenuItem
           onClick={() => {
             handleGoTo("/perfil");
@@ -211,7 +211,7 @@ const Header = () => {
         >
           My account
         </MenuItem>
-      )}
+      )} */}
       {isLogged && <MenuItem onClick={handleLogout}>Cerrar Sesión</MenuItem>}
       {/* <MenuItem
         onClick={() => {
@@ -314,12 +314,12 @@ const Header = () => {
 
   return (
     <div className="header__component">
-      <Sidebar />
+      {/* <Sidebar /> */}
       <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
         <Box sx={{ flexGrow: 1 }}>
           <AppBar className="appBar" position="static">
             <Toolbar>
-              <IconButton
+              {/* <IconButton
                 size="large"
                 edge="start"
                 color="inherit"
@@ -328,13 +328,17 @@ const Header = () => {
                 onClick={handleToggleSidebar}
               >
                 <MenuIcon />
-              </IconButton>
+              </IconButton> */}
 
               <IconButton
                 size="large"
                 edge="start"
                 color="inherit"
                 aria-label="open drawer"
+                style={{
+                  background: isDarkMode ? "white" : "",
+                  borderRadius: "10px",
+                }}
                 sx={{ mr: 2 }}
                 onClick={() => {
                   navigate("/");
@@ -344,7 +348,7 @@ const Header = () => {
                 {/* <HomeIcon /> */}
                 <img className="logo_header" src={Logo} alt={Logo} />
               </IconButton>
-              <Search>
+              {/* <Search>
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
@@ -355,7 +359,7 @@ const Header = () => {
                   // onChange={handleSearch}
                   onClick={handleCloseCartIfMobile}
                 />
-              </Search>
+              </Search> */}
               <Box sx={{ flexGrow: 1 }} />
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <IconButton
