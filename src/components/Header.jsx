@@ -313,7 +313,7 @@ const Header = () => {
         <Box sx={{ flexGrow: 1 }}>
           <AppBar className="appBar" position="static">
             <Toolbar>
-              {/* <IconButton
+              <IconButton
                 size="large"
                 edge="start"
                 color="inherit"
@@ -322,7 +322,7 @@ const Header = () => {
                 onClick={handleToggleSidebar}
               >
                 <MenuIcon />
-              </IconButton> */}
+              </IconButton>
 
               <IconButton
                 size="large"

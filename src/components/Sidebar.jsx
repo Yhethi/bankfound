@@ -22,15 +22,13 @@ import { setIsLoading } from "../redux/slices/loaderSlice";
 import { logoutUser } from "../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({ setModalOpen, setModalOpen2, setModalOpen3 }) => {
   const isOpen = useSelector((state) => state.sidebar.isOpen);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const darkMode = useSelector((state) => state.darkMode.isActivated);
 
-  const [isDarkMode, setIsDarkMode] = useState(
-    JSON.parse(localStorage.getItem("isDarkMode")) || false
-  );
+  const [isDarkMode, setIsDarkMode] = useState(darkMode || false);
   const toggleDrawer = (event) => {
     if (event.type !== "click" || event.target === event.currentTarget) {
       dispatch(toggleSidebar(!isOpen));
@@ -60,6 +58,10 @@ const Sidebar = () => {
       document.body.click();
     }, 400);
   };
+  const handleCloseSidebar = () => {
+    dispatch(toggleSidebar(!isOpen));
+  };
+
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer}>
       <List component="nav">
@@ -70,17 +72,38 @@ const Sidebar = () => {
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary="Mi Status" />
+            <ListItemText primary="Operaciones" />
             {openDropdowns["dropdown1"] ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         </ListItem>
         <Collapse in={openDropdowns["dropdown1"]} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItemButton sx={{ pl: 4 }}>
-              <ListItemText primary="Estado: Activo" />
+            <ListItemButton
+              sx={{ pl: 4 }}
+              onClick={(e) => {
+                setModalOpen3(true);
+                handleCloseSidebar();
+              }}
+            >
+              <ListItemText primary="Deposito" />
             </ListItemButton>
-            <ListItemButton sx={{ pl: 4 }}>
-              <ListItemText primary="Progreso: 75%" />
+            <ListItemButton
+              sx={{ pl: 4 }}
+              onClick={(e) => {
+                setModalOpen3(true);
+                handleCloseSidebar();
+              }}
+            >
+              <ListItemText primary="Retirar" />
+            </ListItemButton>
+            <ListItemButton
+              sx={{ pl: 4 }}
+              onClick={(e) => {
+                setModalOpen3(true);
+                handleCloseSidebar();
+              }}
+            >
+              <ListItemText primary="Transferencia" />
             </ListItemButton>
           </List>
         </Collapse>
@@ -98,10 +121,10 @@ const Sidebar = () => {
         <Collapse in={openDropdowns["dropdown2"]} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItemButton sx={{ pl: 4 }}>
-              <ListItemText primary="Alerta 1" />
+              <ListItemText primary="Bloque 1" />
             </ListItemButton>
             <ListItemButton sx={{ pl: 4 }}>
-              <ListItemText primary="Alerta 2" />
+              <ListItemText primary="Bloque 2" />
             </ListItemButton>
           </List>
         </Collapse>

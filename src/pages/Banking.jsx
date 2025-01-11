@@ -9,6 +9,7 @@ import { loginUser } from "../redux/slices/authSlice";
 import { useEffect } from "react";
 import RetiroModal from "../components/tools/RetiroModal";
 import DepositModal from "../components/tools/DepositModal";
+import Sidebar from "../components/Sidebar";
 
 const Banking = () => {
   const user = useSelector((state) => state.auth.user);
@@ -29,69 +30,86 @@ const Banking = () => {
   }, 0);
 
   return (
-    <div className="banking">
-      <div className="dataUser">
-        <h1>Bienvenido {user.name}</h1>
-        <h6>
-          {user.email} - Ultima Conexion: {showTime}
-        </h6>
-      </div>
+    <>
+      <Sidebar
+        setModalOpen={setModalOpen}
+        setModalOpen2={setModalOpen2}
+        setModalOpen3={setModalOpen3}
+      />
 
-      <div className="banking-overview">
-        <AccountCard accountName="Disponible" balance={user.saldo} />
-        {/* <AccountCard accountName="Ahorrado (Mes)" balance={user.ahorrado} /> */}
-        {isAdmin ? (
-          <>
-            <AccountCard
-              accountName="S. Total en Sistema"
-              balance={totalAmountUsers}
-            />
-          </>
-        ) : (
-          <></>
-        )}
+      <div className="banking">
+        <div className="dataUser">
+          <h3>
+            Bienvenido {user.name}
+            {user.lastname}
+          </h3>
+          <h6>
+            {user.email} - Ultima Conexion: {showTime}
+          </h6>
+        </div>
+
+        <div className="banking-overview">
+          <AccountCard accountName="Disponible" balance={user.saldo} />
+          {/* <AccountCard accountName="Ahorrado (Mes)" balance={user.ahorrado} /> */}
+          {isAdmin ? (
+            <>
+              <AccountCard
+                accountName="S. Total en Sistema"
+                balance={totalAmountUsers}
+              />
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+        <div className="actions__card">
+          {isAdmin ? (
+            <>
+              <button onClick={() => setModalOpen3(true)}>
+                <span>Deposito</span>
+              </button>
+              <button onClick={() => setModalOpen2(true)}>
+                <span>Retirar</span>
+              </button>
+              <button onClick={() => setModalOpen(true)}>
+                <span>Transferencia</span>
+              </button>
+              <button onClick={toggleGraph}>
+                <span>Ver Grafica</span>
+              </button>
+            </>
+          ) : (
+            <>
+              <button onClick={() => setModalOpen(true)}>
+                <span>Transferencia</span>
+              </button>
+              <button onClick={toggleGraph}>
+                <span>Ver Grafica</span>
+              </button>
+            </>
+          )}
+        </div>
+        <BarChartComponent
+          showGraph={showGraph}
+          user={user}
+          users={users}
+          setShowGraph={setShowGraph}
+        />
+        <TransactionsTable user={user} users={users} />
+        <TransferModal
+          isOpen={isModalOpen}
+          onClose={() => setModalOpen(false)}
+        />
+        <RetiroModal
+          isOpen={isModalOpen2}
+          onClose={() => setModalOpen2(false)}
+        />
+        <DepositModal
+          isOpen={isModalOpen3}
+          onClose={() => setModalOpen3(false)}
+        />
       </div>
-      <div className="actions__card">
-        {isAdmin ? (
-          <>
-            <button onClick={() => setModalOpen3(true)}>
-              <span>Deposito</span>
-            </button>
-            <button onClick={() => setModalOpen2(true)}>
-              <span>Retirar</span>
-            </button>
-            <button onClick={() => setModalOpen(true)}>
-              <span>Transferencia</span>
-            </button>
-            <button onClick={toggleGraph}>
-              <span>Ver Grafica</span>
-            </button>
-          </>
-        ) : (
-          <>
-            <button onClick={() => setModalOpen(true)}>
-              <span>Transferencia</span>
-            </button>
-            <button onClick={toggleGraph}>
-              <span>Ver Grafica</span>
-            </button>
-          </>
-        )}
-      </div>
-      <BarChartComponent
-        showGraph={showGraph}
-        user={user}
-        users={users}
-        setShowGraph={setShowGraph}
-      />
-      <TransactionsTable user={user} users={users} />
-      <TransferModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
-      <RetiroModal isOpen={isModalOpen2} onClose={() => setModalOpen2(false)} />
-      <DepositModal
-        isOpen={isModalOpen3}
-        onClose={() => setModalOpen3(false)}
-      />
-    </div>
+    </>
   );
 };
 

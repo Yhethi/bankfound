@@ -17,4 +17,9 @@
 
 1.03
 - Grafica zIndex.
-. Transition quitada de botones en mobile.
+- Transition quitada de botones en mobile.
+
+1.04
+- Sidebar añadido con operaciones y darkmode.
+- Footer fontSize acomodado.
+- FontSize disminuido para el bienvenido.
