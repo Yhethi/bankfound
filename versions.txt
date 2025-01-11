@@ -23,3 +23,6 @@
 - Sidebar añadido con operaciones y darkmode.
 - Footer fontSize acomodado.
 - FontSize disminuido para el bienvenido.
+
+v1.05
+- Operaciones fixed.
