@@ -202,7 +202,7 @@ const TransactionsTable = ({ user, users }) => {
               ))
             ) : (
               <tr>
-                <td colSpan="6" style={{ textAlign: "center" }}>
+                <td colSpan="7" style={{ textAlign: "center" }}>
                   No hay operaciones.
                 </td>
               </tr>

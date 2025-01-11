@@ -6,3 +6,7 @@
 - Grafica ahora en un modal.
 - Mas ajustes en el envio de los datos en cada modo de operacion.
 - Y muchas otras caracteristicas más.
+
+1.01
+- Footer arreglado.
+- Ajustado el coldspan del cero transacciones.

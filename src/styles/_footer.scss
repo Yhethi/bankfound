@@ -1,7 +1,8 @@
 .footer__container {
   position: fixed;
   bottom: 0;
-  width: calc(100vw - 8px);
+  width: 100vw;
+  padding-inline: 8px;
   display: flex;
   justify-content: space-between;
   background: black;
