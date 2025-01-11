@@ -14,7 +14,7 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
-
+    z-index: 10;
     &.show {
       opacity: 1;
       pointer-events: all;
@@ -72,7 +72,7 @@
     justify-content: center;
     gap: 10px;
     button {
-      background-color: #0866ff;;
+      background-color: #0866ff;
       color: white;
       border: none;
       border-radius: 5px;
@@ -85,7 +85,7 @@
       margin-bottom: 10px;
       margin-top: -30px;
       &:hover {
-        background-color: #3581fa;;
+        background-color: #3581fa;
         scale: 1.03;
       }
     }
