@@ -27,7 +27,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import HomeIcon from "@mui/icons-material/Home";
 import { useDispatch, useSelector } from "react-redux";
 import { getDarkMode } from "../js/changeColor";
-// import { clearCart, setShowCart } from "../redux/slices/cartSlice";
+
 import { toggleSidebar } from "../redux/slices/sidebarSlice";
 
 import { useNavigate } from "react-router-dom";
@@ -84,11 +84,7 @@ const Header = () => {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  // const isPulsing = useSelector((state) => state.cart.pulse);
-
-  // const showCart = useSelector((state) => state.cart.visible);
   const getSidebarStatus = useSelector((state) => state.sidebar.isOpen);
-  // const totalItems = useSelector((state) => state.cart.products.length);
 
   // Redux
   const dispatch = useDispatch();
@@ -288,26 +284,24 @@ const Header = () => {
     </Menu>
   );
 
-  // Tema claro
   const lightTheme = createTheme({
     palette: {
       primary: {
-        main: "#ffffff", // Color para el AppBar en tema claro
+        main: "#ffffff",
       },
       text: {
-        primary: "#000000", // Color del texto en tema claro
+        primary: "#000000",
       },
     },
   });
 
-  // Tema oscuro
   const darkTheme = createTheme({
     palette: {
       primary: {
-        main: "#242424", // Color para el AppBar en tema oscuro
+        main: "#242424",
       },
       text: {
-        primary: "#ffffff", // Color del texto en tema oscuro
+        primary: "#ffffff",
       },
     },
   });

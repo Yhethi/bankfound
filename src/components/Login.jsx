@@ -3,19 +3,15 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser, logoutUser } from "../redux/slices/authSlice";
-import { setProducts } from "../redux/slices/productsSlice";
 import { setIsLoading } from "../redux/slices/loaderSlice";
 import ParticlesBackground from "./tools/ParticlesBackground";
 
-import { clearCart } from "../redux/slices/cartSlice";
 import Header from "./Header";
 import Loader from "./tools/Loader";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
-  // const [email, setEmail] = useState("admin@gmail.com");
   const [password, setPassword] = useState("");
-  // const [password, setPassword] = useState("123");
   const [error, setError] = useState("");
   const [toRegister, setToRegister] = useState(false);
 
@@ -25,31 +21,15 @@ export const Login = () => {
   async function mockLoginAPI(email, password) {
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Buscar el usuario por email y contraseña
     const user = users.find(
       (u) => u.email === email && u.password === password
     );
-
-    // if (email === "admin@gmail.com" && password === "123") {
-    //   return {
-    //     data: {
-    //       success: true,
-    //       token: "fakeAuthToken123",
-    //       user: {
-    //         id: 1,
-    //         name: "Yhethi",
-    //         email: "admin@gmail.com",
-    //         saldo: 8270,
-    //         ahorrado: 5827,
-    //       },
-    //     },
-    //   };
 
     if (user) {
       return {
         data: {
           success: true,
-          token: "fakeAuthToken123", // Simular un token
+          token: "fakeAuthToken123",
           user: {
             id: user.id,
             name: user.name,

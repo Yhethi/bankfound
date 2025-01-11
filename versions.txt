@@ -1,0 +1,8 @@
+1.00
+
+- Transacciones.
+- Excel incorporado.
+- Responsive Desktop, Tablet, Mobile.
+- Grafica ahora en un modal.
+- Mas ajustes en el envio de los datos en cada modo de operacion.
+- Y muchas otras caracteristicas más.

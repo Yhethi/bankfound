@@ -12,6 +12,7 @@ import DepositModal from "../components/tools/DepositModal";
 
 const Banking = () => {
   const user = useSelector((state) => state.auth.user);
+  const isAdmin = user.email === "admin@gmail.com";
   const date = new Date();
   const showTime =
     date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -38,53 +39,45 @@ const Banking = () => {
 
       <div className="banking-overview">
         <AccountCard accountName="Disponible" balance={user.saldo} />
-        <AccountCard accountName="Ahorrado (Mes)" balance={user.ahorrado} />
+        {/* <AccountCard accountName="Ahorrado (Mes)" balance={user.ahorrado} /> */}
         <AccountCard
           accountName="S. Total en Sistema"
           balance={totalAmountUsers}
         />
       </div>
       <div className="actions__card">
-        <button onClick={() => setModalOpen3(true)}>
-          <span>Deposito</span>
-        </button>
-        <button onClick={() => setModalOpen2(true)}>
-          <span>Retirar</span>
-        </button>
-        <button onClick={() => setModalOpen(true)}>
-          <span>Transferencia</span>
-        </button>
-        <button type="button" onClick={toggleGraph}>
-          {showGraph ? (
-            <span>
-              Ocultar Grafica
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24px"
-                viewBox="0 -960 960 960"
-                width="24px"
-                fill="#000"
-              >
-                <path d="m280-400 200-200 200 200H280Z" />
-              </svg>
-            </span>
-          ) : (
-            <span>
-              Mostrar Grafica
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="28px"
-                viewBox="0 -960 960 960"
-                width="28px"
-                fill="#000"
-              >
-                <path d="M480-360 280-560h400L480-360Z" />
-              </svg>
-            </span>
-          )}
-        </button>
+        {isAdmin ? (
+          <>
+            <button onClick={() => setModalOpen3(true)}>
+              <span>Deposito</span>
+            </button>
+            <button onClick={() => setModalOpen2(true)}>
+              <span>Retirar</span>
+            </button>
+            <button onClick={() => setModalOpen(true)}>
+              <span>Transferencia</span>
+            </button>
+            <button onClick={toggleGraph}>
+              <span>Ver Grafica</span>
+            </button>
+          </>
+        ) : (
+          <>
+            <button onClick={() => setModalOpen(true)}>
+              <span>Transferencia</span>
+            </button>
+            <button onClick={toggleGraph}>
+              <span>Ver Grafica</span>
+            </button>
+          </>
+        )}
       </div>
-      <BarChartComponent showGraph={showGraph}  user={user} users={users}/>
+      <BarChartComponent
+        showGraph={showGraph}
+        user={user}
+        users={users}
+        setShowGraph={setShowGraph}
+      />
       <TransactionsTable user={user} users={users} />
       <TransferModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
       <RetiroModal isOpen={isModalOpen2} onClose={() => setModalOpen2(false)} />

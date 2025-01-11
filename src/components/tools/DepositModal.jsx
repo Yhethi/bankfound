@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { loginUser } from "../../redux/slices/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { format } from "date-fns";
 
 const DepositModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
-  //   const [email, setEmail] = useState("test@gmail.com");
   const [amount, setAmount] = useState("");
   const dispatch = useDispatch();
+  const userNow = useSelector((state) => state.auth.user) || [];
+  const isAdmin = userNow.email === "admin@gmail.com";
+  useEffect(() => {
+    if (!isAdmin) {
+      setEmail(userNow.email);
+    }
+  }, []);
 
   const handleTransfer = () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -19,17 +25,25 @@ const DepositModal = ({ isOpen, onClose }) => {
       alert("El usuario no existe.");
       return;
     }
-    currentUser.saldo = parseFloat(currentUser.saldo);
+
+    recipient.saldo = parseFloat(recipient.saldo);
+    recipient.saldo += parsedAmount;
+    recipient.saldo = recipient.saldo.toFixed(2);
+    const mode = "Deposito";
+
     if (recipient.email === currentUser.email) {
+      currentUser.saldo = parseFloat(currentUser.saldo);
       currentUser.saldo += parsedAmount;
       currentUser.saldo = currentUser.saldo.toFixed(2);
       currentUser.transactions = [
         ...(currentUser.transactions || []),
         {
           amount: parsedAmount,
-          recipient: email,
+          sender: currentUser.email,
+          recipient: currentUser.email,
           email,
           currentAmount: currentUser.saldo,
+          mode,
           date: format(new Date(), "dd/MM/yyyy HH:mm"),
         },
       ];
@@ -38,22 +52,25 @@ const DepositModal = ({ isOpen, onClose }) => {
         ...(currentUser.transactions || []),
         {
           amount: parsedAmount,
+          sender: currentUser.email,
           recipient: email,
           email,
-          currentAmount: recipient.saldo,
+          currentAmount: currentUser.saldo,
+          mode,
           date: format(new Date(), "dd/MM/yyyy HH:mm"),
         },
       ];
     }
 
-    recipient.saldo = parseFloat(recipient.saldo) + parsedAmount;
     recipient.transactions = [
       ...(recipient.transactions || []),
       {
         amount: parsedAmount,
         sender: currentUser.email,
-        email: currentUser.email,
+        recipient: email,
+        email,
         currentAmount: recipient.saldo,
+        mode,
         date: format(new Date(), "dd/MM/yyyy HH:mm"),
       },
     ];
@@ -86,19 +103,31 @@ const DepositModal = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  const handleBackdropClick = (event) => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="modal-backdrop">
+    <div className="modal-backdrop" onClick={handleBackdropClick}>
       <div className="transfer-modal">
-        <h3>Depositar Dinero</h3>
-        <label>
-          Email del receptor:
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
+        {isAdmin ? (
+          <>
+            <h3>Depositar Dinero</h3>
+            <label>
+              Email del receptor:
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </label>
+          </>
+        ) : (
+          ""
+        )}
         <label>
           Monto a depositar:
           <input

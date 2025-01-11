@@ -16,21 +16,11 @@ export const AppRoutes = createBrowserRouter([
     element: <PrivateRoute />,
     errorElement: <ErrorPage />,
   },
-  // {
-  //   path: "/tienda/:id_del_usuario",
-  //   element: <Tienda />,
-  //   errorElement: <ErrorPage />,
-  // },
   {
     path: "/register",
     element: <Register />,
     errorElement: <ErrorPage />,
   },
-  // {
-  //   path: "/perfil",
-  //   element: <PrivateRoute />,
-  //   errorElement: <ErrorPage />,
-  // },
   {
     path: "*",
     element: <NotFound />,

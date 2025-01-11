@@ -14,7 +14,9 @@
   &:hover {
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
   }
-
+  @media (max-width: 480px) {
+    width: 90vw;
+  }
   .card-icon {
     width: 50px;
     height: 50px;

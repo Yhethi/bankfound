@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { loginUser } from "../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import { format } from "date-fns";
 
 const TransferModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
-  //   const [email, setEmail] = useState("test@gmail.com");
   const [amount, setAmount] = useState("");
 
-  //   const handleTransfer = () => {
-  //     onTransfer(email, parseFloat(amount));
-  //   };
   const dispatch = useDispatch();
 
   const handleTransfer = () => {
@@ -34,31 +30,36 @@ const TransferModal = ({ isOpen, onClose }) => {
       alert("Saldo insuficiente.");
       return;
     }
-
-    localStorage.setItem("user", JSON.stringify(currentUser));
-
-    // Actualizar el saldo y registrar las transacciones
+    currentUser.saldo = parseFloat(currentUser.saldo);
     currentUser.saldo -= parsedAmount;
     currentUser.saldo = currentUser.saldo.toFixed(2);
+    recipient.saldo = parseFloat(recipient.saldo);
+    recipient.saldo += parsedAmount;
+    recipient.saldo = recipient.saldo.toFixed(2);
+
+    const mode = "Transferencia";
+
     currentUser.transactions = [
       ...(currentUser.transactions || []),
       {
         amount: -parsedAmount,
+        sender: currentUser.email,
         recipient: email,
         email,
         currentAmount: currentUser.saldo,
+        mode,
         date: format(new Date(), "dd/MM/yyyy HH:mm"),
       },
     ];
-
-    recipient.saldo += parsedAmount;
     recipient.transactions = [
       ...(recipient.transactions || []),
       {
         amount: parsedAmount,
         sender: currentUser.email,
-        email: currentUser.email,
+        recipient: email,
+        email,
         currentAmount: recipient.saldo,
+        mode,
         date: format(new Date(), "dd/MM/yyyy HH:mm"),
       },
     ];
@@ -91,8 +92,14 @@ const TransferModal = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  const handleBackdropClick = (event) => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="modal-backdrop">
+    <div className="modal-backdrop" onClick={handleBackdropClick}>
       <div className="transfer-modal">
         <h3>Transferir Dinero</h3>
         <label>

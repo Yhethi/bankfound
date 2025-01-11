@@ -1,0 +1,13 @@
+.footer__container {
+  position: fixed;
+  bottom: 0;
+  width: calc(100vw - 8px);
+  display: flex;
+  justify-content: space-between;
+  background: black;
+  color: white;
+  height: 18px;
+  p {
+    color: white;
+  }
+}

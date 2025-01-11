@@ -4,7 +4,6 @@
   margin-top: -35px;
   display: flex !important;
   justify-content: center;
-  // flex-direction: column;
   @media (max-width: 710px) {
     justify-content: left;
   }
@@ -17,7 +16,11 @@
   margin-top: 10px;
   gap: 5px;
   width: 100%;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
+  @media (max-width: 480px) {
+    padding-bottom: 100px;
+
+  }
   .pagination-arrow,
   .pagination-number {
     border: 1px solid #ccc;
@@ -79,15 +82,34 @@
   column-gap: 10px;
   .search__dates {
     display: flex;
+    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     column-gap: 10px;
   }
-  input {
+  input,
+  button {
     height: 48px;
     padding: 10px;
     margin-bottom: 15px;
     border: 2px solid #0866ff;
     border-radius: 10px;
+  }
+  .export-button {
+    background-color: #0a7640;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+    &:hover {
+      background-color: #06964e;
+      scale: 1.03;
+    }
   }
 }
 .transactions-table {
