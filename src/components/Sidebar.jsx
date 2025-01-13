@@ -99,7 +99,7 @@ const Sidebar = ({ setModalOpen, setModalOpen2, setModalOpen3 }) => {
             <ListItemButton
               sx={{ pl: 4 }}
               onClick={(e) => {
-                setModalOpen1(true);
+                setModalOpen(true);
                 handleCloseSidebar();
               }}
             >

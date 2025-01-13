@@ -24,5 +24,9 @@
 - Footer fontSize acomodado.
 - FontSize disminuido para el bienvenido.
 
-v1.05
+1.05
 - Operaciones fixed.
+
+1.06
+- Funciones optimizadas
+- Tabla mejorada

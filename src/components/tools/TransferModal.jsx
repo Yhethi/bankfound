@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { loginUser } from "../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import { format } from "date-fns";
+import { generateReference } from "../../js/generateReference";
 
 const TransferModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const TransferModal = ({ isOpen, onClose }) => {
 
     const recipient = users.find((u) => u.email === email);
     const parsedAmount = parseFloat(amount);
-
+    const reference = generateReference();
     if (recipient.email === currentUser.email) {
       alert("No te puedes transferir a ti mismo.");
       return;
@@ -48,6 +49,7 @@ const TransferModal = ({ isOpen, onClose }) => {
         email,
         currentAmount: currentUser.saldo,
         mode,
+        reference,
         date: format(new Date(), "dd/MM/yyyy HH:mm"),
       },
     ];
@@ -60,6 +62,7 @@ const TransferModal = ({ isOpen, onClose }) => {
         email,
         currentAmount: recipient.saldo,
         mode,
+        reference,
         date: format(new Date(), "dd/MM/yyyy HH:mm"),
       },
     ];
@@ -99,7 +102,7 @@ const TransferModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="modal-backdrop" onClick={handleBackdropClick}>
+    <div className="modal-backdrop" onMouseDown={handleBackdropClick}>
       <div className="transfer-modal">
         <h3>Transferir Dinero</h3>
         <label>

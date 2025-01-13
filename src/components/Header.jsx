@@ -86,6 +86,9 @@ const Header = () => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const getSidebarStatus = useSelector((state) => state.sidebar.isOpen);
 
+  const user = useSelector((state) => state.auth.user) || [];
+  const isAdmin = user.email === "admin@gmail.com";
+
   // Redux
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -313,16 +316,22 @@ const Header = () => {
         <Box sx={{ flexGrow: 1 }}>
           <AppBar className="appBar" position="static">
             <Toolbar>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                sx={{ mr: 2 }}
-                onClick={handleToggleSidebar}
-              >
-                <MenuIcon />
-              </IconButton>
+              {isAdmin ? (
+                <>
+                  <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="open drawer"
+                    sx={{ mr: 2 }}
+                    onClick={handleToggleSidebar}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                </>
+              ) : (
+                <></>
+              )}
 
               <IconButton
                 size="large"

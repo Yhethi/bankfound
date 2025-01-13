@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { loginUser } from "../../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { format } from "date-fns";
+import { generateReference } from "../../js/generateReference";
 
 const DepositModal = ({ isOpen, onClose }) => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("admin@gmail.com");
   const [amount, setAmount] = useState("");
   const dispatch = useDispatch();
   const userNow = useSelector((state) => state.auth.user) || [];
@@ -15,11 +16,14 @@ const DepositModal = ({ isOpen, onClose }) => {
     }
   }, []);
 
+
+
   const handleTransfer = () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const currentUser = JSON.parse(localStorage.getItem("user"));
     const recipient = users.find((u) => u.email === email);
     const parsedAmount = parseFloat(amount);
+    const reference = generateReference();
 
     if (!recipient) {
       alert("El usuario no existe.");
@@ -44,6 +48,7 @@ const DepositModal = ({ isOpen, onClose }) => {
           email,
           currentAmount: currentUser.saldo,
           mode,
+          reference,
           date: format(new Date(), "dd/MM/yyyy HH:mm"),
         },
       ];
@@ -57,6 +62,7 @@ const DepositModal = ({ isOpen, onClose }) => {
           email,
           currentAmount: currentUser.saldo,
           mode,
+          reference,
           date: format(new Date(), "dd/MM/yyyy HH:mm"),
         },
       ];
@@ -71,6 +77,7 @@ const DepositModal = ({ isOpen, onClose }) => {
         email,
         currentAmount: recipient.saldo,
         mode,
+        reference,
         date: format(new Date(), "dd/MM/yyyy HH:mm"),
       },
     ];
@@ -110,7 +117,7 @@ const DepositModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="modal-backdrop" onClick={handleBackdropClick}>
+    <div className="modal-backdrop" onMouseDown={handleBackdropClick}>
       <div className="transfer-modal">
         {isAdmin ? (
           <>

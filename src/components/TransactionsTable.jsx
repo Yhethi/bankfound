@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import { format } from "date-fns";
+import { Details, Shower } from "@mui/icons-material";
+import { consolidateTransactions } from "../js/consolidateTransactions";
 
 const TransactionsTable = ({ user, users }) => {
   const [filteredData, setFilteredData] = useState([]);
@@ -42,6 +44,7 @@ const TransactionsTable = ({ user, users }) => {
       const reversedTransactions = [...transactions].reverse();
       setAllTransactions(reversedTransactions);
       setFilteredData(reversedTransactions);
+      consolidateTransactions();
     }
   }, [user, users]);
 
@@ -124,6 +127,16 @@ const TransactionsTable = ({ user, users }) => {
     XLSX.writeFile(workbook, user.email + "_" + dateNow + ".xlsx");
   };
 
+  const [modalData, setModalData] = useState(null);
+
+  const handleViewDetails = (data) => {
+    setModalData(data);
+  };
+
+  const handleCloseModal = () => {
+    setModalData(null);
+  };
+
   return (
     <>
       <div className="table__search">
@@ -165,22 +178,24 @@ const TransactionsTable = ({ user, users }) => {
         <table className="transactions-table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Email</th>
+              <th>Fecha</th>
+              <th>Referencia</th>
+              <th>Débito / Crédito</th>
               <th>Saldo</th>
               <th>Transacción</th>
               <th>Modo</th>
-              <th>Fecha</th>
+              <th>Detalles</th>
             </tr>
           </thead>
           <tbody>
             {paginatedData && paginatedData.length > 0 ? (
               paginatedData.map((data, index) => (
                 <tr key={index}>
-                  <td>{data.user.id}</td>
-                  <td>{data.user.name}</td>
-                  <td>{data.user.email}</td>
+                  <td>{data.user.transaction.date}</td>
+                  <td>{data.user.transaction.reference}</td>
+                  <td>
+                    {data.user.transaction.amount > 0 ? "Crédito" : "Débito"}
+                  </td>
                   <td>
                     {user.email === "admin@gmail.com" ||
                     user.email === data.user.transaction.email ||
@@ -198,18 +213,64 @@ const TransactionsTable = ({ user, users }) => {
                     {data.user.transaction.amount} Bs.
                   </td>
                   <td>{data.user.transaction.mode}</td>
-                  <td>{data.user.transaction.date}</td>
+                  <td>
+                    <div className="center__details">
+                      <button
+                        className="details-button"
+                        onClick={() => handleViewDetails(data)}
+                      >
+                        <Details />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="7" style={{ textAlign: "center" }}>
+                <td colSpan="8" style={{ textAlign: "center" }}>
                   No hay operaciones.
                 </td>
               </tr>
             )}
           </tbody>
         </table>
+        {modalData && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h2>Detalles de la Transacción</h2>
+              <p>
+                <strong>N# Referencia:</strong>{" "}
+                {modalData.user.transaction.reference}
+              </p>
+              <p>
+                <strong>Nombre:</strong> {modalData.user.name}
+              </p>
+              <p>
+                <strong>Origen:</strong> {modalData.user.transaction.sender}
+              </p>
+              <p>
+                <strong>Destino:</strong> {modalData.user.transaction.recipient}
+              </p>
+              <p>
+                <strong>Saldo:</strong>
+                {modalData.user.transaction.currentAmount} Bs.
+              </p>
+              <p>
+                <strong>Transacción:</strong>
+                {modalData.user.transaction.amount} Bs.
+              </p>
+              <p>
+                <strong>Modo:</strong> {modalData.user.transaction.mode}
+              </p>
+              <p>
+                <strong>Fecha:</strong> {modalData.user.transaction.date}
+              </p>
+              <button className="close-button" onClick={handleCloseModal}>
+                Cerrar
+              </button>
+            </div>
+          </div>
+        )}
       </div>
       <div className="pagination">
         <button

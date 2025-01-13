@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { loginUser } from "../../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { format } from "date-fns";
+import { generateReference } from "../../js/generateReference";
+import { consolidateTransactions } from "../../js/consolidateTransactions";
 
 const RetiroModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
@@ -20,6 +22,7 @@ const RetiroModal = ({ isOpen, onClose }) => {
     const currentUser = JSON.parse(localStorage.getItem("user"));
     const recipient = users.find((u) => u.email === email);
     const parsedAmount = parseFloat(amount);
+    const reference = generateReference();
 
     if (!recipient) {
       alert("El usuario no existe.");
@@ -49,6 +52,7 @@ const RetiroModal = ({ isOpen, onClose }) => {
           email,
           currentAmount: currentUser.saldo,
           mode,
+          reference,
           date: format(new Date(), "dd/MM/yyyy HH:mm"),
         },
       ];
@@ -62,6 +66,7 @@ const RetiroModal = ({ isOpen, onClose }) => {
           email,
           currentAmount: currentUser.saldo,
           mode,
+          reference,
           date: format(new Date(), "dd/MM/yyyy HH:mm"),
         },
       ];
@@ -76,6 +81,7 @@ const RetiroModal = ({ isOpen, onClose }) => {
         email,
         currentAmount: recipient.saldo,
         mode,
+        reference,
         date: format(new Date(), "dd/MM/yyyy HH:mm"),
       },
     ];
@@ -98,6 +104,7 @@ const RetiroModal = ({ isOpen, onClose }) => {
     setEmail("");
     setAmount("");
     onClose();
+    consolidateTransactions();
     alert("Retiro realizado con éxito.");
   };
 
@@ -114,7 +121,7 @@ const RetiroModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="modal-backdrop" onClick={handleBackdropClick}>
+    <div className="modal-backdrop" onMouseDown={handleBackdropClick}>
       <div className="transfer-modal">
         {isAdmin ? (
           <>

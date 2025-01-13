@@ -40,8 +40,7 @@ const Banking = () => {
       <div className="banking">
         <div className="dataUser">
           <h3>
-            Bienvenido {user.name}
-            {user.lastname}
+            Bienvenido {user.name} {user.lastname}
           </h3>
           <h6>
             {user.email} - Ultima Conexion: {showTime}
