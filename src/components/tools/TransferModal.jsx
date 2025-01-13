@@ -102,8 +102,8 @@ const TransferModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="modal-backdrop" onMouseDown={handleBackdropClick}>
-      <div className="transfer-modal">
+    <div className="modal-backdrop" onClick={handleBackdropClick}>
+      <div className="transfer-modal" onClick={(e) => e.stopPropagation()}>
         <h3>Transferir Dinero</h3>
         <label>
           Email del receptor:

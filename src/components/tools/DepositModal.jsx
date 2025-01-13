@@ -16,8 +16,6 @@ const DepositModal = ({ isOpen, onClose }) => {
     }
   }, []);
 
-
-
   const handleTransfer = () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -117,8 +115,8 @@ const DepositModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="modal-backdrop" onMouseDown={handleBackdropClick}>
-      <div className="transfer-modal">
+    <div className="modal-backdrop" onClick={handleBackdropClick}>
+      <div className="transfer-modal" onClick={(e) => e.stopPropagation()}>
         {isAdmin ? (
           <>
             <h3>Depositar Dinero</h3>
@@ -145,7 +143,7 @@ const DepositModal = ({ isOpen, onClose }) => {
           />
         </label>
         <div className="modal-actions">
-          <button onClick={handleTransfer}>Transferir</button>
+          <button onClick={handleTransfer}>Depositar</button>
           <button onClick={handleRestart}>Cancelar</button>
         </div>
       </div>

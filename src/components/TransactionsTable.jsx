@@ -107,11 +107,11 @@ const TransactionsTable = ({ user, users }) => {
         user.email === "admin@gmail.com" ||
         user.email === data.user.transaction.email ||
         user.email === data.user.transaction.sender
-          ? `${data.user.transaction.currentAmount} Bs.`
+          ? `${data.user.transaction.currentAmount} $`
           : "",
       Transacción:
         (data.user.transaction.amount > 0 ? "+" : "") +
-        `${data.user.transaction.amount} Bs.`,
+        `${data.user.transaction.amount} $`,
       Modo: data.user.transaction.mode,
       Fecha: data.user.transaction.date,
     }));
@@ -200,7 +200,7 @@ const TransactionsTable = ({ user, users }) => {
                     {user.email === "admin@gmail.com" ||
                     user.email === data.user.transaction.email ||
                     user.email === data.user.transaction.sender
-                      ? `${data.user.transaction.currentAmount} Bs.`
+                      ? `${data.user.transaction.currentAmount} $`
                       : ""}
                   </td>
                   <td
@@ -210,7 +210,7 @@ const TransactionsTable = ({ user, users }) => {
                     }}
                   >
                     {data.user.transaction.amount > 0 ? "+" : ""}
-                    {data.user.transaction.amount} Bs.
+                    {data.user.transaction.amount} $
                   </td>
                   <td>{data.user.transaction.mode}</td>
                   <td>
@@ -235,12 +235,11 @@ const TransactionsTable = ({ user, users }) => {
           </tbody>
         </table>
         {modalData && (
-          <div className="modal-overlay">
-            <div className="modal-content">
+          <div className="modal-overlay" onClick={handleCloseModal}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <h2>Detalles de la Transacción</h2>
               <p>
-                <strong>N# Referencia:</strong>{" "}
-                {modalData.user.transaction.reference}
+                <strong>N# Referencia:</strong> {modalData.user.transaction.reference}
               </p>
               <p>
                 <strong>Nombre:</strong> {modalData.user.name}
@@ -252,12 +251,12 @@ const TransactionsTable = ({ user, users }) => {
                 <strong>Destino:</strong> {modalData.user.transaction.recipient}
               </p>
               <p>
-                <strong>Saldo:</strong>
-                {modalData.user.transaction.currentAmount} Bs.
+                <strong>Saldo:</strong>{" "}
+                {modalData.user.transaction.currentAmount} $
               </p>
               <p>
-                <strong>Transacción:</strong>
-                {modalData.user.transaction.amount} Bs.
+                <strong>Transacción:</strong>{" "}
+                {modalData.user.transaction.amount} $
               </p>
               <p>
                 <strong>Modo:</strong> {modalData.user.transaction.mode}

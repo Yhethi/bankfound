@@ -28,5 +28,9 @@
 - Operaciones fixed.
 
 1.06
-- Funciones optimizadas
-- Tabla mejorada
+- Funciones optimizadas.
+- Tabla mejorada.
+
+1.07
+- Stop propagations para los modales.
+- Ajuste de espacios en el detalle de la tabla.

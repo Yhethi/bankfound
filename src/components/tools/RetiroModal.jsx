@@ -121,8 +121,8 @@ const RetiroModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="modal-backdrop" onMouseDown={handleBackdropClick}>
-      <div className="transfer-modal">
+    <div className="modal-backdrop" onClick={handleBackdropClick}>
+      <div className="transfer-modal" onClick={(e) => e.stopPropagation()}>
         {isAdmin ? (
           <>
             <h3>Retirar Dinero</h3>
